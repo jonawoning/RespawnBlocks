@@ -1,0 +1,49 @@
+# Respawn blocks. Edit in-game with /rb gui or /rb block ...
+#
+# <MATERIAL>:
+#   respawn-time: <seconds>
+#   placeholder: <MATERIAL>       (optional, overrides default-placeholder)
+#   drop-mode: NATURAL|INVENTORY|BLOCK   (optional, overrides drop-mode)
+#   enabled: true|false           (optional, default true)
+#
+# Blocks that don't exist on your server version (deepslate and copper ores
+# before 1.17) are ignored, but kept in this file.
+blocks:
+  COAL_ORE:
+    respawn-time: 30
+  DEEPSLATE_COAL_ORE:
+    respawn-time: 30
+  COPPER_ORE:
+    respawn-time: 45
+  DEEPSLATE_COPPER_ORE:
+    respawn-time: 45
+  IRON_ORE:
+    respawn-time: 60
+  DEEPSLATE_IRON_ORE:
+    respawn-time: 60
+  GOLD_ORE:
+    respawn-time: 90
+  DEEPSLATE_GOLD_ORE:
+    respawn-time: 90
+  LAPIS_ORE:
+    respawn-time: 90
+  DEEPSLATE_LAPIS_ORE:
+    respawn-time: 90
+  REDSTONE_ORE:
+    respawn-time: 90
+  DEEPSLATE_REDSTONE_ORE:
+    respawn-time: 90
+  DIAMOND_ORE:
+    respawn-time: 180
+  DEEPSLATE_DIAMOND_ORE:
+    respawn-time: 180
+  EMERALD_ORE:
+    respawn-time: 240
+  DEEPSLATE_EMERALD_ORE:
+    respawn-time: 240
+  NETHER_QUARTZ_ORE:
+    respawn-time: 60
+  NETHER_GOLD_ORE:
+    respawn-time: 60
+  ANCIENT_DEBRIS:
+    respawn-time: 600

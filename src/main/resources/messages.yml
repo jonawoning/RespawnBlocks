@@ -1,0 +1,176 @@
+# ------------------------------------------------------------
+#  RespawnBlocks - messages
+#  Colors: &a, &l, ... and hex colors as &#RRGGBB
+#  %prefix% is added automatically in front of chat messages.
+#  Leave a message empty ('') to not send it at all.
+# ------------------------------------------------------------
+prefix: '&8[&5&lRespawnBlocks&8] &7'
+
+no-permission: '&cYou do not have permission to do that.'
+players-only: '&cOnly players can use this.'
+reloaded: '&aConfiguration reloaded.'
+unknown-command: '&cUnknown sub command. Use &e/%label% help&c.'
+usage: '&cUse: &e%usage%'
+invalid-number: '&c%input% is not a valid number of seconds.'
+invalid-material: '&c%input% is not a valid block.'
+world-not-found: '&cWorld %world% does not exist.'
+hold-a-block: '&cHold a block in your main hand.'
+
+region-not-found: '&cWorldGuard region &e%region% &cdoes not exist in world &e%world%&c.'
+region-added: '&aRegion &e%region% &a(%world%) is now a respawn region.'
+region-already: '&cRegion &e%region% &cis already a respawn region.'
+region-removed: '&aRegion &e%region% &a(%world%) is no longer a respawn region.'
+region-not-respawn: '&cRegion &e%region% &cis not a respawn region.'
+region-enabled: '&aRespawn region &e%region% &ais now &2enabled&a.'
+region-disabled: '&aRespawn region &e%region% &ais now &cdisabled&a.'
+region-list-header: '&7Respawn regions in &e%world%&7:'
+region-list-entry: '&8 - &e%region% &7(%state%&7)'
+region-list-empty: '&7No respawn regions in &e%world%&7.'
+state-enabled: '&aenabled'
+state-disabled: '&cdisabled'
+
+block-added: '&aAdded &e%block% &awith a respawn time of &e%time%&a.'
+block-already: '&e%block% &cis already a respawn block. Use &e/rb block settime&c.'
+block-removed: '&aRemoved &e%block% &afrom the respawn blocks.'
+block-not-respawn: '&e%block% &cis not a respawn block.'
+block-time-set: '&aRespawn time of &e%block% &ais now &e%time%&a.'
+block-placeholder-set: '&aPlaceholder of &e%block% &ais now &e%placeholder%&a.'
+block-list-header: '&7Respawn blocks:'
+block-list-entry: '&8 - &e%block% &7%time% &8(placeholder: %placeholder%)'
+
+respawned-all: '&aRespawned &e%amount% &ablock(s).'
+pending-info: '&7Blocks waiting to respawn: &e%amount%'
+plugin-toggled-on: '&aRespawnBlocks is now &2enabled&a.'
+plugin-toggled-off: '&aRespawnBlocks is now &cdisabled&a.'
+
+# Shown when someone breaks a non-respawn block inside a respawn region.
+cannot-break: '&cYou can only mine ores here!'
+
+help:
+  - '&8&l&m-----&7 &5&lRespawnBlocks &8&l&m-----'
+  - '&d/%label% gui &7- Open the management GUI.'
+  - '&d/%label% region add &7<region> [world] - Mark a region as respawn region.'
+  - '&d/%label% region remove &7<region> [world] - Unmark a respawn region.'
+  - '&d/%label% region toggle &7<region> [world] - Enable/disable a respawn region.'
+  - '&d/%label% region list &7[world] - List respawn regions.'
+  - '&d/%label% block add &7<block|hand> [seconds] - Add a respawn block.'
+  - '&d/%label% block remove &7<block> - Remove a respawn block.'
+  - '&d/%label% block settime &7<block> <seconds> - Change a respawn time.'
+  - '&d/%label% block list &7- List respawn blocks.'
+  - '&d/%label% respawnall &7[region] - Respawn waiting blocks right now.'
+  - '&d/%label% toggle &7- Turn the whole plugin on/off.'
+  - '&d/%label% reload &7- Reload all configuration files.'
+
+# Time format used in messages and the GUI
+time:
+  hours: '%h%h '
+  minutes: '%m%m '
+  seconds: '%s%s'
+
+gui:
+  main:
+    title: '&5&lRespawnBlocks'
+    blocks-name: '&b&lRespawn blocks'
+    blocks-lore:
+      - '&7Add blocks and change'
+      - '&7their respawn times.'
+      - ''
+      - '&e%amount% &7blocks configured'
+      - '&eClick to open'
+    regions-name: '&a&lRespawn regions'
+    regions-lore:
+      - '&7Turn WorldGuard regions'
+      - '&7into respawn regions.'
+      - ''
+      - '&e%amount% &7respawn regions'
+      - '&eClick to open'
+    toggle-name: '&6&lPlugin: %state%'
+    toggle-lore:
+      - '&7Turn respawning on or off'
+      - '&7for the whole server.'
+      - ''
+      - '&eClick to toggle'
+    pending-name: '&d&lWaiting blocks: &e%amount%'
+    pending-lore:
+      - '&7Blocks currently waiting'
+      - '&7to respawn.'
+      - ''
+      - '&eClick to respawn them all now'
+    reload-name: '&e&lReload'
+    reload-lore:
+      - '&7Reload all config files.'
+  blocks:
+    title: '&b&lRespawn blocks &8(%page%/%pages%)'
+    entry-name: '&e%block%'
+    entry-lore:
+      - '&7Respawn time: &f%time%'
+      - '&7Placeholder: &f%placeholder%'
+      - '&7Drops: &f%drop%'
+      - '&7Status: %state%'
+      - ''
+      - '&eLeft-click &7to edit'
+      - '&eShift-right-click &7to remove'
+    info-name: '&a&lAdd a block'
+    info-lore:
+      - '&7Click a block in &fyour own'
+      - '&finventory &7to add it as'
+      - '&7a respawn block.'
+  editor:
+    title: '&8Edit: &e%block%'
+    time-name: '&e&lRespawn time: &f%time%'
+    time-lore:
+      - '&7Use the buttons to change it.'
+    change-name: '&%color%%amount% seconds'
+    placeholder-name: '&6&lPlaceholder: &f%placeholder%'
+    placeholder-lore:
+      - '&7Click a block in your own'
+      - '&7inventory to use it as'
+      - '&7placeholder.'
+      - ''
+      - '&eRight-click &7to reset to default'
+    drop-name: '&b&lDrops: &f%drop%'
+    drop-lore:
+      - '&7NATURAL &8- &7vanilla drops on the ground'
+      - '&7INVENTORY &8- &7vanilla drops in inventory'
+      - '&7BLOCK &8- &7the block itself in inventory'
+      - '&7DEFAULT &8- &7use config.yml'
+      - ''
+      - '&eClick to change'
+    toggle-name: '&a&lStatus: %state%'
+    toggle-lore:
+      - '&eClick to toggle'
+    delete-name: '&c&lRemove block'
+    delete-lore:
+      - '&7Shift-click to remove this'
+      - '&7block from the respawn blocks.'
+  regions:
+    title: '&a&lRegions &8- &7%world% &8(%page%/%pages%)'
+    entry-name: '&e%region%'
+    entry-lore-respawn:
+      - '&7Respawn region: %state%'
+      - '&7Waiting blocks: &f%amount%'
+      - ''
+      - '&eLeft-click &7to toggle'
+      - '&eShift-right-click &7to remove'
+    entry-lore-normal:
+      - '&7Not a respawn region.'
+      - ''
+      - '&eClick &7to make it a respawn region'
+    entry-lore-missing:
+      - '&cThis region no longer exists'
+      - '&cin WorldGuard.'
+      - ''
+      - '&eShift-right-click &7to remove'
+    world-name: '&b&lWorld: &f%world%'
+    world-lore:
+      - '&eClick &7to switch world'
+    filter-name: '&6&lShowing: &f%filter%'
+    filter-lore:
+      - '&eClick &7to switch between all'
+      - '&7regions and respawn regions only'
+    filter-all: 'all regions'
+    filter-respawn: 'respawn regions'
+  previous-page: '&7&l< Previous page'
+  next-page: '&7&lNext page >'
+  back: '&c&lBack'
+  close: '&c&lClose'

@@ -1,0 +1,29 @@
+name: RespawnBlocks
+version: '${version}'
+main: nl.jouwapplicatie.respawnBlocks.RespawnBlocks
+# Lowest supported version. Runs on 1.16.5 up to the newest versions (Spigot and Paper).
+api-version: '1.16'
+authors: [ Jona Woning ]
+description: Turns mined ores into a placeholder block inside WorldGuard regions and respawns them after a configurable time.
+website: jouwapplicatie.nl
+# WorldGuard itself requires WorldEdit (or FastAsyncWorldEdit)
+depend: [ WorldGuard ]
+
+commands:
+  respawnblocks:
+    description: Manage respawn regions and respawn blocks.
+    usage: /<command> help
+    aliases: [ rb, mineisland ]
+
+permissions:
+  respawnblocks.admin:
+    description: Access to all RespawnBlocks commands and the GUI.
+    default: op
+    children:
+      respawnblocks.reload: true
+  respawnblocks.reload:
+    description: Reload the RespawnBlocks configuration.
+    default: op
+  respawnblocks.bypass:
+    description: Break any block inside a respawn region, and break placeholders in creative mode.
+    default: op
