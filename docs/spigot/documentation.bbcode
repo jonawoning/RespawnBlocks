@@ -1,0 +1,124 @@
+[SIZE=6][B][COLOR=#8b5cf6]RespawnBlocks – Documentation[/COLOR][/B][/SIZE]
+
+All files are in [I]plugins/RespawnBlocks/[/I]. After editing a file by hand, use [B]/rb reload[/B].
+
+[LIST]
+[*][B]config.yml[/B]: general settings
+[*][B]messages.yml[/B]: prefix, chat messages and GUI texts
+[*][B]blocks.yml[/B]: respawn blocks (also editable in the GUI)
+[*][B]regions.yml[/B]: respawn regions per world (also editable in the GUI)
+[*][B]data.yml[/B]: blocks waiting to respawn. [COLOR=#ff0000]Don't edit this file[/COLOR], the plugin manages it.
+[/LIST]
+
+[SIZE=5][B][COLOR=#8b5cf6]config.yml[/COLOR][/B][/SIZE]
+[SPOILER="config.yml"]
+[CODE=YAML]# Master switch. When false, blocks in respawn regions break normally.
+enabled: true
+
+# Block that replaces a mined block until it respawns.
+# A block in blocks.yml can override this with its own "placeholder".
+default-placeholder: BEDROCK
+
+# Default respawn time (seconds) for blocks added without a time.
+default-respawn-time: 60
+
+# NATURAL   - normal vanilla drops on the ground (fortune / silk touch work)
+# INVENTORY - normal vanilla drops, put straight into the player's inventory
+# BLOCK     - the block itself goes into the inventory (classic MineIsland behaviour)
+drop-mode: INVENTORY
+
+# Cancel breaking blocks in a respawn region that are NOT respawn blocks.
+block-other-breaks: true
+
+# Allow breaking respawn blocks even when another plugin (for example WorldGuard
+# with "build deny") cancelled the break.
+override-protection: true
+
+# Ignore players in creative mode.
+ignore-creative: true
+
+# Respawn checks run every X ticks (20 ticks = 1 second).
+check-interval-ticks: 20
+
+# Waiting blocks are saved to data.yml every X minutes (and on shutdown).
+autosave-minutes: 1
+
+# On shutdown, instantly respawn every placeholder in a loaded chunk.
+respawn-loaded-on-shutdown: true
+
+# Effect when a block respawns. Sound name or key, NONE to disable.
+respawn-effect:
+  sound: BLOCK_STONE_PLACE
+  volume: 0.6
+  pitch: 1.0
+  particles: true[/CODE]
+[/SPOILER]
+
+[SIZE=5][B][COLOR=#8b5cf6]blocks.yml[/COLOR][/B][/SIZE]
+Every block has a respawn time in seconds. [I]placeholder[/I], [I]drop-mode[/I] and [I]enabled[/I] are optional. When you leave them out, the defaults from config.yml are used.
+[SPOILER="blocks.yml example"]
+[CODE=YAML]blocks:
+  COAL_ORE:
+    respawn-time: 30
+  DIAMOND_ORE:
+    respawn-time: 180
+  EMERALD_ORE:
+    respawn-time: 240
+    placeholder: STONE
+    drop-mode: BLOCK
+  OAK_LOG:
+    respawn-time: 30
+    enabled: false[/CODE]
+[/SPOILER]
+Blocks that don't exist on your server version (for example deepslate and copper ores on 1.16) are ignored, but stay in the file. They start working automatically after a server update.
+
+[SIZE=5][B][COLOR=#8b5cf6]regions.yml[/COLOR][/B][/SIZE]
+[SPOILER="regions.yml example"]
+[CODE=YAML]regions:
+  world:
+    mine: true        # enabled
+    vip_mine: false   # disabled
+  world_nether:
+    nether_mine: true[/CODE]
+[/SPOILER]
+
+[SIZE=5][B][COLOR=#8b5cf6]messages.yml[/COLOR][/B][/SIZE]
+Every chat message, the prefix and every GUI text can be changed.
+[LIST]
+[*]Color codes: [I]&a[/I], [I]&l[/I], ... and hex colors as [I]&#RRGGBB[/I].
+[*]Placeholders: [I]%region%[/I], [I]%world%[/I], [I]%block%[/I], [I]%time%[/I], [I]%amount%[/I], [I]%placeholder%[/I] and [I]%label%[/I].
+[*]Leave a message empty ([I]''[/I]) to not send it at all.
+[*]The time format (for example [I]1m 30s[/I]) can be changed under [I]time:[/I].
+[/LIST]
+
+[SIZE=5][B][COLOR=#8b5cf6]How it works[/COLOR][/B][/SIZE]
+[LIST=1]
+[*]A player breaks a block. RespawnBlocks checks whether it is a respawn block inside an [B]enabled respawn region[/B].
+[*]The break happens normally, so drops, Fortune, XP, durability and other plugins all work as usual.
+[*]One tick later, the spot is filled with the [B]placeholder[/B].
+[*]Every second, blocks whose time is up and whose [B]chunk is loaded[/B] are put back.
+[*]Blocks in [B]unloaded chunks[/B] wait, and respawn as soon as their chunk loads. Chunks are never force-loaded.
+[*]Waiting blocks are saved to disk, so they survive restarts and crashes.
+[/LIST]
+Only the placeholder (or air or liquid) is ever replaced. If something else was built on that spot in the meantime, it is left alone.
+
+[SIZE=5][B][COLOR=#8b5cf6]FAQ[/COLOR][/B][/SIZE]
+[B]Players see "Hey! Sorry, but you can't break that block here." while mining.[/B]
+That message comes from WorldGuard when the region has [I]build deny[/I]. The ore is still mined because of [I]override-protection[/I]. To get rid of the message, allow breaking in the region and let RespawnBlocks protect the other blocks:
+[CODE]/rg flag mine block-break allow[/CODE]
+Keep [I]block-other-breaks: true[/I] in config.yml.
+
+[B]A placeholder doesn't respawn.[/B]
+Its chunk is probably not loaded. It respawns as soon as a player comes near. You can also force it with [I]/rb respawnall[/I]. Admins with [I]respawnblocks.bypass[/I] in creative mode can break a placeholder to cancel its respawn.
+
+[B]Can I use something other than bedrock as placeholder?[/B]
+Yes. Change [I]default-placeholder[/I] in config.yml, or set one per block in the GUI: open the block and click a block in your inventory.
+
+[B]Does it work with FastAsyncWorldEdit?[/B]
+Yes. RespawnBlocks only talks to WorldGuard.
+
+[B]Which WorldGuard version do I need?[/B]
+Any WorldGuard 7.x that matches your server version. For example, 7.0.4 – 7.0.6 for 1.16.5, and the latest version for 1.21.
+
+[B]I'm coming from the old MineIsland plugin.[/B]
+Add your mine regions again with [I]/rb region add <region>[/I]. [I]/mineisland[/I] still works as an alias. Set [I]drop-mode: BLOCK[/I] to keep the old behaviour where players receive the ore block itself.

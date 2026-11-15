@@ -1,0 +1,93 @@
+[CENTER][SIZE=7][B][COLOR=#8b5cf6]RespawnBlocks[/COLOR][/B][/SIZE]
+[SIZE=5][I]Regenerating ores and blocks inside WorldGuard regions[/I][/SIZE]
+
+[B]Minecraft 1.16.5 – 1.21.x[/B]  •  [B]Spigot & Paper[/B]  •  [B]Requires WorldGuard[/B][/CENTER]
+
+[SIZE=5][B][COLOR=#8b5cf6]What is RespawnBlocks?[/COLOR][/B][/SIZE]
+RespawnBlocks turns any WorldGuard region into a [B]regenerating mine[/B]. When a player mines an ore inside a respawn region, it turns into a placeholder block (bedrock by default). After a configurable time, the [B]original block comes back[/B]. Every block has its own timer.
+
+Perfect for [B]mine islands, public mines, prison mines, skyblock/oneblock-style resource areas and resource worlds[/B].
+
+Everything is managed from an [B]in-game GUI[/B]. No config editing needed, but every setting and every message can still be changed in the config files.
+
+[SIZE=5][B][COLOR=#8b5cf6]Features[/COLOR][/B][/SIZE]
+[LIST]
+[*][B]Per-block respawn timers[/B]: every block type has its own respawn time, placeholder and drop mode.
+[*][B]Any block can respawn[/B]: all ores are set up by default (overworld, deepslate, copper, nether and ancient debris). You can add logs, stone or anything else.
+[*][B]Exact restore[/B]: the original block comes back with its full block state.
+[*][B]Chunk-safe[/B]: never force-loads chunks. Blocks in unloaded chunks respawn the moment their chunk loads again.
+[*][B]Restart- and crash-safe[/B]: waiting blocks are saved to disk, so no stray bedrock is left behind after a restart. Downtime counts towards the timer.
+[*][B]Vanilla mining[/B]: Fortune, Silk Touch, tool durability, XP and Mending all work. Plugins like jobs and mcMMO see a normal block break.
+[*][B]3 drop modes[/B]: drops on the ground, drops straight into the inventory, or the block itself (classic MineIsland style).
+[*][B]WorldGuard integration[/B]: mine respawn blocks even in regions with [I]build deny[/I], while all other blocks stay protected.
+[*][B]Placeholder protection[/B]: explosions, pistons, fire and mobs can't remove placeholders.
+[*][B]Full GUI[/B]: add blocks, change times and placeholders, and enable or disable regions per world.
+[*][B]Tab completion[/B] for every command, including your WorldGuard regions and all block names.
+[*][B]Fully translatable[/B]: prefix, messages and all GUI texts, with & color codes and hex colors ([I]&#RRGGBB[/I]).
+[*][B]Respawn effects[/B]: configurable sound and block particles.
+[*][B]Lightweight[/B]: one region lookup per block break and no async trickery. Works with Spigot, Paper, Purpur and other forks.
+[/LIST]
+
+[SIZE=5][B][COLOR=#8b5cf6]The GUI[/COLOR][/B][/SIZE]
+Open it with [B]/rb gui[/B].
+[LIST]
+[*][B]Blocks menu[/B]: see all respawn blocks with their time, placeholder and drop mode. [I]Click a block in your own inventory to add it.[/I]
+[*][B]Block editor[/B]:
+[LIST]
+[*]Change the respawn time with -60 / -10 / -1 / +1 / +10 / +60 second buttons.
+[*]Set a placeholder by clicking a block in your inventory.
+[*]Switch the drop mode, enable or disable the block, or remove it.
+[/LIST]
+[*][B]Regions menu[/B]: lists every WorldGuard region per world.
+[LIST]
+[*]Click a region to make it a respawn region, and click again to enable or disable it.
+[*]Switch between worlds, and filter on respawn regions only.
+[/LIST]
+[*][B]Main menu[/B]: turn the whole plugin on or off, respawn all waiting blocks instantly, and reload.
+[/LIST]
+
+[SIZE=5][B][COLOR=#8b5cf6]Requirements[/COLOR][/B][/SIZE]
+[LIST]
+[*]Spigot or Paper (or a fork), [B]1.16.5 up to the latest version[/B]
+[*][URL='https://dev.bukkit.org/projects/worldguard']WorldGuard 7.x[/URL] (pick the version that matches your server)
+[*][URL='https://dev.bukkit.org/projects/worldedit']WorldEdit[/URL] or FastAsyncWorldEdit (needed by WorldGuard)
+[/LIST]
+[B]One single jar for all versions.[/B] Blocks that don't exist on older versions (like deepslate ores on 1.16) are skipped automatically.
+
+[SIZE=5][B][COLOR=#8b5cf6]Installation[/COLOR][/B][/SIZE]
+[LIST=1]
+[*]Install WorldEdit (or FAWE) and WorldGuard.
+[*]Drop [B]RespawnBlocks.jar[/B] into your [I]plugins[/I] folder and restart the server.
+[*]Create a WorldGuard region around your mine: [I]/rg define mine[/I]
+[*]Mark it as respawn region: [I]/rb region add mine[/I] (or click it in [I]/rb gui[/I]).
+[*]Done! Ores mined in that region now regenerate.
+[/LIST]
+
+[SIZE=5][B][COLOR=#8b5cf6]Commands[/COLOR][/B][/SIZE]
+Main command [B]/respawnblocks[/B]. Aliases: [B]/rb[/B] and [B]/mineisland[/B].
+[LIST]
+[*][B]/rb gui[/B]: open the management GUI
+[*][B]/rb region add|remove|toggle <region> [world][/B]: manage respawn regions
+[*][B]/rb region list [world][/B]: list respawn regions
+[*][B]/rb block add <block|hand> [seconds][/B]: add a respawn block
+[*][B]/rb block remove <block>[/B]: remove a respawn block
+[*][B]/rb block settime <block> <seconds>[/B]: change a respawn time
+[*][B]/rb block list[/B]: list respawn blocks
+[*][B]/rb respawnall [region][/B]: respawn all waiting blocks right now
+[*][B]/rb toggle[/B]: turn the plugin on or off
+[*][B]/rb reload[/B]: reload all configuration files
+[/LIST]
+
+[SIZE=5][B][COLOR=#8b5cf6]Permissions[/COLOR][/B][/SIZE]
+[LIST]
+[*][B]respawnblocks.admin[/B]: all commands and the GUI (default: op)
+[*][B]respawnblocks.reload[/B]: only /rb reload (default: op)
+[*][B]respawnblocks.bypass[/B]: break any block in respawn regions. In creative mode, also remove placeholders (default: op)
+[/LIST]
+Players need [B]no permission[/B] to mine respawn blocks.
+
+[SIZE=5][B][COLOR=#8b5cf6]Support[/COLOR][/B][/SIZE]
+Found a bug or have a suggestion? Please use the [B]discussion tab[/B] instead of leaving it in a review, so I can help you.
+If you like the plugin, a [B]review[/B] is much appreciated! ❤
+
+See the [B]Documentation[/B] tab for all config options and the FAQ.
